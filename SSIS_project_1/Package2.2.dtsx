@@ -1,0 +1,1133 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/23/2025 9:39:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="TANIAHOLUB"
+  DTS:CreatorName="TANIAHOLUB\Тетяна"
+  DTS:DTSID="{F426B1D6-5920-4AF6-9716-7517AD849392}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1058"
+  DTS:ObjectName="Package2 2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="58"
+  DTS:VersionGUID="{8B87E955-CFE1-4CD6-A10D-8620E680ED37}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File DimCurrency]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{78214293-9C5D-4DE4-982A-050B8FF6F33D}"
+      DTS:ObjectName="Flat File DimCurrency">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1058"
+          DTS:Unicode="True"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1251"
+          DTS:ConnectionString="C:\Users\Тетяна\Desktop\epam\SSIS\SSIS_project_1\files\flat_file_20250224.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CurrencyKey"
+              DTS:DTSID="{F17AF393-C15C-442A-B8F5-CE69A844CBD4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CurrencyAlternateKey"
+              DTS:DTSID="{3F321712-472B-4834-B9E2-B1B6ED87BF81}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CurrencyName"
+              DTS:DTSID="{709DDE3C-C467-4C62-B317-89CE875E70BA}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[TANIAHOLUB\MSSQLSERVER07.Adventure]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{39CBCEDB-942D-4401-B1EE-A381B760721E}"
+      DTS:ObjectName="TANIAHOLUB\MSSQLSERVER07.Adventure">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=TANIAHOLUB\MSSQLSERVER07;Initial Catalog=Adventure;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package2 2-{39CBCEDB-942D-4401-B1EE-A381B760721E}TANIAHOLUB\MSSQLSERVER07.Adventure;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Matched"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{DC27FB62-DD55-4DD1-A2FD-2BB26D184BCE}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Matched">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Matched\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Matched\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Matched\Conditional Split.Inputs[Conditional Split Input].Columns[CurrencyAlternateKey]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyAlternateKey"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Matched\Conditional Split.Outputs[Matched]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Matched"
+                  synchronousInputId="Package\Matched\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[LEFT](#{Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]},1) == "A"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">LEFT(CurrencyAlternateKey,1) == "A"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Matched\Conditional Split.Outputs[Not Matched]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Not Matched"
+                  synchronousInputId="Package\Matched\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[LEFT](#{Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]},1) != "A"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">LEFT(CurrencyAlternateKey,1) != "A"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Matched\Conditional Split.Outputs[Default]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Default"
+                  synchronousInputId="Package\Matched\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Matched\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Matched\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Matched\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Matched\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Matched\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Matched\DimCurrency_Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DimCurrency_Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimCurrency_Destination]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Matched\DimCurrency_Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[TANIAHOLUB\MSSQLSERVER07.Adventure]"
+                  connectionManagerRefId="Package.ConnectionManagers[TANIAHOLUB\MSSQLSERVER07.Adventure]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].Columns[CurrencyAlternateKey]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyAlternateKey"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyAlternateKey]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].Columns[CurrencyName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyName"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyName]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyName]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].Columns[MatchStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="MatchStatus"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[MatchStatus]"
+                      lineageId="Package\Matched\Matched.Outputs[Derived Column Output].Columns[MatchStatus]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].Columns[InsertedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InsertedDate"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertedDate]"
+                      lineageId="Package\Matched\Matched.Outputs[Derived Column Output].Columns[InsertedDate]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].Columns[CurrencyKey]"
+                      cachedDataType="i4"
+                      cachedName="CurrencyKey"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyKey]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyKey]"
+                      dataType="i4"
+                      name="CurrencyKey" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      length="3"
+                      name="CurrencyAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CurrencyName" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[MatchStatus]"
+                      dataType="wstr"
+                      length="20"
+                      name="MatchStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertedDate]"
+                      dataType="dbTimeStamp"
+                      name="InsertedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Matched\DimCurrency_Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Matched\DimCurrency_Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Matched\DimCurrency_Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Matched\DimCurrency_Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Matched\DimCurrency_NotMatched"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DimCurrency_NotMatched"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimCurrency_NotMatched]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">true</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Matched\DimCurrency_NotMatched.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[TANIAHOLUB\MSSQLSERVER07.Adventure]"
+                  connectionManagerRefId="Package.ConnectionManagers[TANIAHOLUB\MSSQLSERVER07.Adventure]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].Columns[Reason]"
+                      cachedDataType="wstr"
+                      cachedLength="26"
+                      cachedName="Reason"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[Reason]"
+                      lineageId="Package\Matched\NotMatched.Outputs[Derived Column Output].Columns[Reason]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].Columns[InsertedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InsertedDate"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[InsertedDate]"
+                      lineageId="Package\Matched\NotMatched.Outputs[Derived Column Output].Columns[InsertedDate]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].Columns[CurrencyAlternateKey]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyAlternateKey"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyAlternateKey]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].Columns[CurrencyName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyName"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyName]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyName]" />
+                    <inputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].Columns[CurrencyKey]"
+                      cachedDataType="i4"
+                      cachedName="CurrencyKey"
+                      externalMetadataColumnId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyKey]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyKey]"
+                      dataType="i4"
+                      name="CurrencyKey" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      length="3"
+                      name="CurrencyAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[CurrencyName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CurrencyName" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[Reason]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reason" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input].ExternalColumns[InsertedDate]"
+                      dataType="dbTimeStamp"
+                      name="InsertedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Matched\DimCurrency_NotMatched.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Matched\DimCurrency_NotMatched.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Matched\DimCurrency_NotMatched.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Matched\DimCurrency_NotMatched.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Matched\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1058"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Matched\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File DimCurrency]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File DimCurrency]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CurrencyKey]"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyKey]"
+                      name="CurrencyKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CurrencyAlternateKey]"
+                      length="50"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyAlternateKey]"
+                      name="CurrencyAlternateKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CurrencyName]"
+                      length="50"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].Columns[CurrencyName]"
+                      name="CurrencyName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CurrencyKey]"
+                      dataType="i4"
+                      name="CurrencyKey" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      length="50"
+                      name="CurrencyAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CurrencyName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CurrencyName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      dataType="nText"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Matched\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Matched\Matched"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Matched"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Matched\Matched.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Matched\Matched.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Matched\Matched.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\Matched.Outputs[Derived Column Output].Columns[MatchStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Matched\Matched.Outputs[Derived Column Output].Columns[MatchStatus]"
+                      name="MatchStatus"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Matched"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Matched"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Matched\Matched.Outputs[Derived Column Output].Columns[InsertedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Matched\Matched.Outputs[Derived Column Output].Columns[InsertedDate]"
+                      name="InsertedDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Matched\Matched.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Matched\Matched.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\Matched.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Matched\Matched.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Matched\Matched.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Matched\Matched.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Matched\NotMatched"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="NotMatched"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Matched\NotMatched.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Matched\NotMatched.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Matched\NotMatched.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\NotMatched.Outputs[Derived Column Output].Columns[Reason]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="26"
+                      lineageId="Package\Matched\NotMatched.Outputs[Derived Column Output].Columns[Reason]"
+                      name="Reason"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"No matching currency found"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"No matching currency found"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Matched\NotMatched.Outputs[Derived Column Output].Columns[InsertedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Matched\NotMatched.Outputs[Derived Column Output].Columns[InsertedDate]"
+                      name="InsertedDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Matched\NotMatched.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Matched\NotMatched.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Matched\NotMatched.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Matched\NotMatched.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Matched\NotMatched.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Matched\NotMatched.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Matched.Paths[Derived Column Output]"
+              endId="Package\Matched\DimCurrency_Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Matched\Matched.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Matched.Paths[Derived Column Output1]"
+              endId="Package\Matched\DimCurrency_NotMatched.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Matched\NotMatched.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Matched.Paths[Flat File Source Output]"
+              endId="Package\Matched\Conditional Split.Inputs[Conditional Split Input]"
+              name="Flat File Source Output"
+              startId="Package\Matched\Flat File Source.Outputs[Flat File Source Output]" />
+            <path
+              refId="Package\Matched.Paths[Matched]"
+              endId="Package\Matched\Matched.Inputs[Derived Column Input]"
+              name="Matched"
+              startId="Package\Matched\Conditional Split.Outputs[Matched]" />
+            <path
+              refId="Package\Matched.Paths[Not Matched]"
+              endId="Package\Matched\NotMatched.Inputs[Derived Column Input]"
+              name="Not Matched"
+              startId="Package\Matched\Conditional Split.Outputs[Not Matched]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{146FCEB4-6528-4352-8C4D-4F703592C9FC}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{FB618E9D-4F9C-4317-8AEB-CD60F1577883}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables />
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="118.4,41.6"
+          Id="Package\Matched"
+          TopLeft="208.83332222369,62.6999996022383" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Matched">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="200.8,41.6"
+          Id="Package\Matched\DimCurrency_NotMatched"
+          TopLeft="85.2592576208676,270.437032978895" />
+        <NodeLayout
+          Size="118.4,41.6"
+          Id="Package\Matched\Matched"
+          TopLeft="683.648137736559,180.60740487992" />
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Matched\Flat File Source"
+          TopLeft="460.833308154511,59.7999995841583" />
+        <NodeLayout
+          Size="134.4,41.6"
+          Id="Package\Matched\NotMatched"
+          TopLeft="197.481478281227,167.0740717758" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Matched\Conditional Split"
+          TopLeft="457.555547920642,172.807405645443" />
+        <NodeLayout
+          Size="196.8,41.6"
+          Id="Package\Matched\DimCurrency_Destination"
+          TopLeft="830.87035807406,263.311107309151" />
+        <EdgeLayout
+          Id="Package\Matched.Paths[Derived Column Output1]"
+          TopLeft="264.681478281227,208.6740717758">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-79.0222206603594,61.7629612030952"
+              Start="0,0"
+              End="-79.0222206603594,54.2629612030952">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8814806015476" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.8814806015476"
+                    Point2="0,30.8814806015476"
+                    Point3="-4,30.8814806015476" />
+                  <mssgle:LineSegment
+                    End="-75.0222206603594,30.8814806015476" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-75.0222206603594,30.8814806015476"
+                    Point2="-79.0222206603594,30.8814806015476"
+                    Point3="-79.0222206603594,34.8814806015476" />
+                  <mssgle:LineSegment
+                    End="-79.0222206603594,54.2629612030952" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Matched.Paths[Derived Column Output]"
+          TopLeft="742.848137736559,222.20740487992">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="186.422220337501,41.1037024292314"
+              Start="0,0"
+              End="186.422220337501,33.6037024292314">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5518512146157" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5518512146157"
+                    Point2="0,20.5518512146157"
+                    Point3="4,20.5518512146157" />
+                  <mssgle:LineSegment
+                    End="182.422220337501,20.5518512146157" />
+                  <mssgle:CubicBezierSegment
+                    Point1="182.422220337501,20.5518512146157"
+                    Point2="186.422220337501,20.5518512146157"
+                    Point3="186.422220337501,24.5518512146157" />
+                  <mssgle:LineSegment
+                    End="186.422220337501,33.6037024292314" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Matched.Paths[Not Matched]"
+          TopLeft="457.555547920642,190.740738710622">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-125.674069639415,0"
+              Start="0,0"
+              End="-118.174069639415,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-118.174069639415,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-87.3100231009575,5,56.4459765625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Matched.Paths[Matched]"
+          TopLeft="611.155547920642,197.507405262682">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="72.492589815917,0"
+              Start="0,0"
+              End="64.992589815917,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="64.992589815917,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="13.5583066267085,5,37.8759765625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Matched.Paths[Flat File Source Output]"
+          TopLeft="535.394428037577,101.399999584158">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71.4074060612847"
+              Start="0,0"
+              End="0,63.9074060612847">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.9074060612847" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Matched\DimCurrency_NotMatched">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Matched\DimCurrency_Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

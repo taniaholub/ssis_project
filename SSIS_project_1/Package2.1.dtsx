@@ -1,0 +1,670 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/23/2025 7:50:28 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="TANIAHOLUB"
+  DTS:CreatorName="TANIAHOLUB\Тетяна"
+  DTS:DTSID="{4C84B2B7-A8F1-4A07-A483-92E1C7DFDB14}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1058"
+  DTS:ObjectName="Package2 1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="40"
+  DTS:VersionGUID="{FBDE2CB6-7471-401D-9016-00C836765C15}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File DimCurrency]"
+      DTS:CreationName="FLATFILE"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{64460F93-F50D-49AF-B90E-11F4193979DB}"
+      DTS:ObjectName="Flat File DimCurrency">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::FileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1058"
+          DTS:Unicode="True"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1251"
+          DTS:ConnectionString="C:\Users\Тетяна\Desktop\epam\SSIS\SSIS_project_1\files\flat_file_20250224.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CurrencyKey"
+              DTS:DTSID="{9BB8417D-798E-488B-801B-D7D25E4B71C6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CurrencyAlternateKey"
+              DTS:DTSID="{2095AD4E-5B41-4AAE-96D3-9835273BEA4B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CurrencyName"
+              DTS:DTSID="{0BAF2C66-A7A7-4E58-8B3A-DAF7E11217A3}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{12AAA578-881F-45B0-8EC3-E89A104916A1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;C:\\Users\\Тетяна\\Desktop\\epam\\SSIS\\SSIS_project_1\\files\\flat_file_&quot; + &#xA;(DT_STR, 4, 1252)YEAR(GETDATE()) + &#xA;RIGHT(&quot;00&quot; + (DT_STR, 2, 1252)MONTH(GETDATE()), 2) + &#xA;RIGHT(&quot;00&quot; + (DT_STR, 2, 1252)DAY(GETDATE()), 2) + &#xA;&quot;.csv&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileName">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Тетяна\Desktop\epam\SSIS\SSIS_project_1\files\flat_file_20250224.csv</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DimCurrency"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7F741F22-147D-49DC-A32C-D364457158B1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimCurrency"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="AdventureWorksDW2016_DimCurrency"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimCurrency]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Connections[OleDbConnection]"
+                  connectionManagerID="{4983CD2E-0ADD-4266-BF46-298BEC9FBBA7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[TANIAHOLUB_MSSQLSERVER07.AdventureWorksDW2016 1]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].ExternalColumns[CurrencyKey]"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyKey]"
+                      name="CurrencyKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].ExternalColumns[CurrencyAlternateKey]"
+                      length="3"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyAlternateKey]"
+                      name="CurrencyAlternateKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].ExternalColumns[CurrencyName]"
+                      length="50"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyName]"
+                      name="CurrencyName"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].ExternalColumns[CurrencyKey]"
+                      dataType="i4"
+                      name="CurrencyKey" />
+                    <externalMetadataColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].ExternalColumns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      length="3"
+                      name="CurrencyAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].ExternalColumns[CurrencyName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CurrencyName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[CurrencyKey]"
+                      dataType="i4"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[CurrencyKey]"
+                      name="CurrencyKey" />
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[CurrencyAlternateKey]"
+                      name="CurrencyAlternateKey" />
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[CurrencyName]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[CurrencyName]"
+                      name="CurrencyName" />
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimCurrency\Flat File DimCurrency"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Destination"
+              localeId="1058"
+              name="Flat File DimCurrency"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+                <property
+                  dataType="System.Boolean"
+                  description="When text qualifier is enabled, specifies whether the text qualifier in the data written to the destination file will be escaped or not."
+                  name="EscapeQualifier">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCurrency\Flat File DimCurrency.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File DimCurrency]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File DimCurrency]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].Columns[CurrencyAlternateKey]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CurrencyAlternateKey"
+                      externalMetadataColumnId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].ExternalColumns[CurrencyAlternateKey]"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyAlternateKey]" />
+                    <inputColumn
+                      refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].Columns[CurrencyName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyName"
+                      externalMetadataColumnId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].ExternalColumns[CurrencyName]"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyName]" />
+                    <inputColumn
+                      refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].Columns[CurrencyKey]"
+                      cachedDataType="i4"
+                      cachedName="CurrencyKey"
+                      externalMetadataColumnId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].ExternalColumns[CurrencyKey]"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].ExternalColumns[CurrencyKey]"
+                      dataType="i4"
+                      name="CurrencyKey" />
+                    <externalMetadataColumn
+                      refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].ExternalColumns[CurrencyAlternateKey]"
+                      dataType="wstr"
+                      length="3"
+                      name="CurrencyAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input].ExternalColumns[CurrencyName]"
+                      dataType="wstr"
+                      length="50"
+                      name="CurrencyName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\DimCurrency\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimCurrency]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimCurrency]) [refTable]
+where [refTable].[CurrencyKey] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CurrencyKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CurrencyAlternateKey" dataType="DT_WSTR" length="3" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CurrencyName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyKey]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCurrency\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{4983CD2E-0ADD-4266-BF46-298BEC9FBBA7}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[TANIAHOLUB_MSSQLSERVER07.AdventureWorksDW2016 1]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimCurrency\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimCurrency\Lookup.Inputs[Lookup Input].Columns[CurrencyAlternateKey]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CurrencyAlternateKey"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyAlternateKey]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn" />
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CurrencyAlternateKey</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCurrency\Lookup.Inputs[Lookup Input].Columns[CurrencyName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CurrencyName"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyName]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn" />
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CurrencyName</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCurrency\Lookup.Inputs[Lookup Input].Columns[CurrencyKey]"
+                      cachedDataType="i4"
+                      cachedName="CurrencyKey"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output].Columns[CurrencyKey]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CurrencyKey</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CurrencyKey</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimCurrency\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DimCurrency\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DimCurrency\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DimCurrency\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DimCurrency\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DimCurrency\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCurrency\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCurrency\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCurrency\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCurrency\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DimCurrency.Paths[Lookup Match Output]"
+              endId="Package\DimCurrency\Flat File DimCurrency.Inputs[Flat File Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\DimCurrency\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DimCurrency.Paths[OLE DB Source Output]"
+              endId="Package\DimCurrency\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\DimCurrency\AdventureWorksDW2016_DimCurrency.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\DimCurrency"
+          TopLeft="399.399960387748,130.066666118238" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DimCurrency">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\DimCurrency\Flat File DimCurrency"
+          TopLeft="705.999993254741,167.266664160424" />
+        <NodeLayout
+          Size="112.8,41.6"
+          Id="Package\DimCurrency\Lookup"
+          TopLeft="405.999993950129,135.999997973442" />
+        <NodeLayout
+          Size="262.4,41.6"
+          Id="Package\DimCurrency\AdventureWorksDW2016_DimCurrency"
+          TopLeft="475.999992907047,52.9999992102385" />
+        <EdgeLayout
+          Id="Package\DimCurrency.Paths[OLE DB Source Output]"
+          TopLeft="607.199992907047,94.5999992102385">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-144.799998956919,41.3999987632036"
+              Start="0,0"
+              End="-144.799998956919,33.8999987632036">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6999993816018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6999993816018"
+                    Point2="0,20.6999993816018"
+                    Point3="-4,20.6999993816018" />
+                  <mssgle:LineSegment
+                    End="-140.799998956919,20.6999993816018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-140.799998956919,20.6999993816018"
+                    Point2="-144.799998956919,20.6999993816018"
+                    Point3="-144.799998956919,24.6999993816018" />
+                  <mssgle:LineSegment
+                    End="-144.799998956919,33.8999987632036" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCurrency.Paths[Lookup Match Output]"
+          TopLeft="518.799993950129,156.799997973442">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="187.199999304612,31.2666661869821"
+              Start="0,0"
+              End="179.699999304612,31.2666661869821">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="89.599999652306,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="89.599999652306,0"
+                    Point2="93.599999652306,0"
+                    Point3="93.599999652306,4" />
+                  <mssgle:LineSegment
+                    End="93.599999652306,27.2666661869821" />
+                  <mssgle:CubicBezierSegment
+                    Point1="93.599999652306,27.2666661869821"
+                    Point2="93.599999652306,31.2666661869821"
+                    Point3="97.599999652306,31.2666661869821" />
+                  <mssgle:LineSegment
+                    End="179.699999304612,31.2666661869821" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="45.408612933556,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCurrency\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCurrency]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCurrency\AdventureWorksDW2016_DimCurrency">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

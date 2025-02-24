@@ -1,0 +1,70 @@
+# SSIS specific files
+*.dtsx.designer.cs
+*.dtsx.designer
+*.ispac
+*.dbmdl
+*.jfm
+
+# Visual Studio specific files
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.tmp
+*.bak
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.sbr
+*.tlb
+*.tlh
+*.ilk
+*.log
+*.lib
+*.pdb
+*.idb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.pidb
+*.svclog
+*.scc
+
+# SSIS deployment files
+*.deploymenttargets
+*.deploymentoptions
+*.deploymentmanifest
+
+# SSIS build directories
+SSIS Packages/bin/
+SSIS Packages/obj/
+**/bin/Development/
+**/obj/Development/
+
+# Package Part folders typically contain temporary files
+**/PackageParts/
+
+# Project configurations that might contain sensitive data
+Project.params
+*.conmgr
+
+# Backup files
+**/Backup/
+*/Backup/*
+
+# Deployment reports
+**/DeploymentReport*.txt
+
+# User-specific files
+*.rsuser
